@@ -20,6 +20,6 @@ export default registerAs('config', () => {
       password: process.env.MYSQL_ROOT_PASSWORD,
       host: process.env.MYSQL_HOST,
     },
-    apiKey: process.env.API_KE,
+    apiKey: process.env.API_KEY,
   };
 });
