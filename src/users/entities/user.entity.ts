@@ -8,6 +8,7 @@ import {
 } from 'typeorm';
 
 import { Customer } from './customer.entity';
+import { Exclude } from 'class-transformer';
 
 @Entity()
 export class User {
@@ -17,8 +18,9 @@ export class User {
   @Column({ type: 'varchar', unique: true })
   email: string;
 
+  @Exclude()
   @Column({ type: 'varchar' })
-  password: string; // todo: encriptar
+  password: string;
 
   @Column({ type: 'varchar', default: 'user' })
   role: string;
