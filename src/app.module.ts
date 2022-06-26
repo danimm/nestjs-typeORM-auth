@@ -20,6 +20,7 @@ import config from './config';
       load: [config],
       validationSchema: Joi.object({
         API_KEY: Joi.string().required(),
+        JWT_SECRET: Joi.string().required(),
         DATABASE_NAME: Joi.string().required(),
         DATABASE_PORT: Joi.number().required(),
         POSTGRES_DB: Joi.string().required(),
