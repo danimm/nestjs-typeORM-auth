@@ -6,11 +6,13 @@ import { Order } from '../entities/order.entity';
 import { Customer } from '../entities/customer.entity';
 
 import { CreateOrderDto, UpdateOrderDto } from '../dtos/orders.dto';
+import { User } from '../entities/user.entity';
 
 @Injectable()
 export class OrdersService {
   constructor(
     @InjectRepository(Order) private orderRepository: Repository<Order>,
+    @InjectRepository(Order) private usersRepository: Repository<User>,
     @InjectRepository(Customer)
     private customerRepository: Repository<Customer>,
   ) {}
@@ -27,6 +29,20 @@ export class OrdersService {
       throw new NotFoundException(`Order with ID "${id}" not found`);
     }
     return order;
+  }
+
+  async ordersByCustomer(userId: number) {
+    console.log('id: ', userId);
+    const user = await this.usersRepository.findOneOrFail(userId, {
+      relations: ['customer'],
+    });
+    console.log('user: ', user);
+    return await this.orderRepository.find({
+      where: {
+        customer: user.customer,
+      },
+      relations: ['customer', 'items'],
+    });
   }
 
   async create(data: CreateOrderDto) {

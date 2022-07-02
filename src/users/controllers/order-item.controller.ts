@@ -7,7 +7,7 @@ import {
   Post,
 } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
-import { OrderItemService } from './order-item.service';
+import { OrderItemService } from '../services/order-item.service';
 import { CreateOrderItemDto } from '../dtos/order-item.dto';
 import { OrderItem } from '../entities/order-item.entity';
 
