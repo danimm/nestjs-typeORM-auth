@@ -13,7 +13,7 @@ export class CustomersService {
   ) {}
 
   findAll() {
-    return this.customerRepository.find();
+    return this.customerRepository.find({ relations: ['user', 'orders'] });
   }
 
   async findOne(id: number) {

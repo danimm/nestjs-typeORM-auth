@@ -12,7 +12,7 @@ import { User } from '../entities/user.entity';
 export class OrdersService {
   constructor(
     @InjectRepository(Order) private orderRepository: Repository<Order>,
-    @InjectRepository(Order) private usersRepository: Repository<User>,
+    @InjectRepository(User) private usersRepository: Repository<User>,
     @InjectRepository(Customer)
     private customerRepository: Repository<Customer>,
   ) {}
@@ -32,15 +32,11 @@ export class OrdersService {
   }
 
   async ordersByCustomer(userId: number) {
-    console.log('id: ', userId);
-    const user = await this.usersRepository.findOneOrFail(userId, {
+    const user = await this.usersRepository.findOne(userId, {
       relations: ['customer'],
     });
-    console.log('user: ', user);
     return await this.orderRepository.find({
-      where: {
-        customer: user.customer,
-      },
+      where: { customer: user.customer },
       relations: ['customer', 'items'],
     });
   }
